@@ -10,16 +10,21 @@ class HistoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<IMCHistoryCubit, List<ImcModel>>(
       builder: (context, imcHistoryState) {
-        return Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: context
-                .read<IMCHistoryCubit>()
-                .imcHistory
-                .map((historyItem) => HistoryItem())
-                .toList(),
-          ),
+        return FutureBuilder<void>(
+          future: context.read<IMCHistoryCubit>().loadIMCHistoryFromStorage(),
+          builder: (context, snapshot) {
+            return Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: context
+                    .read<IMCHistoryCubit>()
+                    .imcHistory
+                    .map((imcItem) => HistoryItem(imc: imcItem))
+                    .toList(),
+              ),
+            );
+          },
         );
       },
     );
@@ -28,14 +33,17 @@ class HistoryScreen extends StatelessWidget {
 
 class HistoryItem extends StatelessWidget {
   const HistoryItem({
+    required this.imc,
     Key? key,
   }) : super(key: key);
+
+  final ImcModel imc;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text('Obesidade nível 1'),
-      subtitle: Text('28,09'),
+      title: Text(imc.description),
+      subtitle: Text(imc.imcValue.toString()),
     );
   }
 }

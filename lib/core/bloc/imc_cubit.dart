@@ -3,8 +3,11 @@ import 'dart:math';
 import 'package:extended_masked_text/extended_masked_text.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:imc/core/constants/app_strings.dart';
 import 'package:imc/core/models/imc_model.dart';
 import 'package:imc/core/shared/exceptions.dart';
+import 'package:imc/core/shared/local_storage.dart';
+import 'package:uuid/uuid.dart';
 
 class ImcCubit extends Cubit<ImcModel> {
   ImcCubit() : super(ImcModel.initial());
@@ -27,11 +30,13 @@ class ImcCubit extends Cubit<ImcModel> {
           weight: double.tryParse(weightCtrl.text) ?? 0.0,
           imcValue: nickTrefethenIMC(),
           description: '',
+          id: Uuid().v4(),
         );
 
+        LocalStorage.persistIMCOnStorage(generatedIMC);
         emit(generatedIMC);
       } else {
-        throw AppExceptions('Preencha todos os campos!');
+        throw AppExceptions(AppStrings.fillAllFields);
       }
     } on AppExceptions catch (exception) {
       debugPrint(exception.toString());

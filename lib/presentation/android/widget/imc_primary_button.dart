@@ -15,7 +15,7 @@ class IMCPrimaryButton extends StatelessWidget {
       padding: const EdgeInsets.only(top: 24.0),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(),
-        onPressed: () => onPressed,
+        onPressed: () => onPressed(),
         child: const Text(AppStrings.calculateIMC),
       ),
     );

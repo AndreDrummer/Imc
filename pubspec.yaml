@@ -31,7 +31,12 @@ dependencies:
     sdk: flutter
   extended_masked_text: ^2.3.1
   font_awesome_flutter: ^9.2.0
+  path_provider: ^2.0.0
   flutter_bloc: ^7.3.1
+  hive_flutter: ^1.1.0
+  json_annotation:
+  hive: ^2.0.4
+  uuid: ^3.0.5
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -41,6 +46,9 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  json_serializable:
+  hive_generator: 
+  build_runner:
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

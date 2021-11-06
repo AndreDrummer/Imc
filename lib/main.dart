@@ -1,4 +1,5 @@
 import 'package:imc/core/bloc/history_cubit.dart';
+import 'package:imc/core/shared/local_storage.dart';
 import 'package:imc/platform_main/android_main.dart';
 import 'package:imc/platform_main/ios_main.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,7 +7,9 @@ import 'package:imc/core/bloc/imc_cubit.dart';
 import 'package:flutter/widgets.dart';
 import 'dart:io';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await LocalStorage.initializeLocalStorage();
   runApp(const Home());
 }
 
