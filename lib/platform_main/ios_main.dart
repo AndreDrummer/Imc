@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:imc/core/constants/app_strings.dart';
+import 'package:imc/presentation/ios/form_screen.dart';
 
 class IOSMain extends StatelessWidget {
   const IOSMain({Key? key}) : super(key: key);
@@ -14,7 +15,7 @@ class IOSMain extends StatelessWidget {
           middle: const Text(AppStrings.appName),
           backgroundColor: CupertinoTheme.of(context).primaryColor,
         ),
-        child: const Text('data'),
+        child: const IosFormScreen(),
       ),
     );
   }

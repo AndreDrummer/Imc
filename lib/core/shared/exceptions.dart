@@ -6,7 +6,7 @@ class AppExceptions implements Exception {
   @override
   String toString() {
     Object? message = this.message;
-    if (message == null) return "Exception";
-    return "Exception: $message";
+    if (message == null) return 'Exception';
+    return 'Exception: $message';
   }
 }

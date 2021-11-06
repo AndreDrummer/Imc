@@ -41,7 +41,6 @@ class ImcCubit extends Cubit<ImcModel> {
   double nickTrefethenIMC() {
     final height = double.tryParse(heightCtrl.text) ?? 0.0;
     final weight = double.tryParse(weightCtrl.text) ?? 0.0;
-    print(1.3 * weight / pow(height, 2.5));
     return 1.3 * weight / pow(height, 2.5);
   }
 
@@ -52,6 +51,8 @@ class ImcCubit extends Cubit<ImcModel> {
   }
 
   void reset() {
+    heightCtrl.clear();
+    weightCtrl.clear();
     emit(ImcModel.initial());
   }
 }

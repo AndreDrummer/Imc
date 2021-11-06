@@ -29,7 +29,7 @@ class IMCField extends StatelessWidget {
         controller: controller,
         onChanged: (value) {},
         decoration: InputDecoration(
-          label: Text(labelText),
+          labelText: labelText,
           hintText: hintText,
         ),
       ),
