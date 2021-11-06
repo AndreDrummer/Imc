@@ -11,4 +11,18 @@ class IMCHistoryCubit extends Cubit<List<ImcModel>> {
     imcHistory = await LocalStorage.loadIMCFromStorage();
     emit(imcHistory);
   }
+
+  Future<void> deleteIMCStorage() async {
+    await LocalStorage.deleteIMCStorage();
+    imcHistory = [];
+    emit(imcHistory);
+  }
+
+  List<ImcModel> subListImcHistory([int length = 2]) {
+    if (imcHistory.length < length) {
+      return imcHistory;
+    } else {
+      return imcHistory.sublist(0, length);
+    }
+  }
 }

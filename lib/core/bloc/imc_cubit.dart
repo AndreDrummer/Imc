@@ -23,13 +23,14 @@ class ImcCubit extends Cubit<ImcModel> {
   void calculateIMC() {
     try {
       if (allFieldsAreValids()) {
-        debugPrint('Do your work! ${heightCtrl.text} ${weightCtrl.text}');
+        double imcCalc = nickTrefethenIMC();
 
         final generatedIMC = ImcModel(
+          imcValue: double.parse(imcCalc.toStringAsFixed(2)),
           height: double.tryParse(heightCtrl.text) ?? 0.0,
           weight: double.tryParse(weightCtrl.text) ?? 0.0,
-          imcValue: nickTrefethenIMC(),
-          description: '',
+          description: getIMCDesription(imcCalc),
+          dateTime: DateTime.now(),
           id: Uuid().v4(),
         );
 
@@ -59,5 +60,22 @@ class ImcCubit extends Cubit<ImcModel> {
     heightCtrl.clear();
     weightCtrl.clear();
     emit(ImcModel.initial());
+  }
+
+  String getIMCDesription(double imc) {
+    if (imc < 18.6) {
+      return 'Abaixo do Peso';
+    } else if (imc >= 18.6 && imc <= 24.9) {
+      return 'Peso Ideal';
+    } else if (imc >= 24.9 && imc <= 29.9) {
+      return 'Levemente acima do peso';
+    } else if (imc >= 24.9 && imc <= 34.9) {
+      return 'Obesidade Grau I';
+    } else if (imc >= 34.9 && imc <= 39.9) {
+      return 'Obesidade Grau II';
+    } else if (imc >= 40) {
+      return 'Obesidade Grau III';
+    }
+    return '';
   }
 }

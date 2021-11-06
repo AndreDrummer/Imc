@@ -30,8 +30,7 @@ dependencies:
   flutter:
     sdk: flutter
   extended_masked_text: ^2.3.1
-  font_awesome_flutter: ^9.2.0
-  path_provider: ^2.0.0
+  font_awesome_flutter: ^9.2.0  
   flutter_bloc: ^7.3.1
   hive_flutter: ^1.1.0
   json_annotation:

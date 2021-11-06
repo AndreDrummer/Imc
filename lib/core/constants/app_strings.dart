@@ -8,6 +8,7 @@ class AppStrings {
   static const String enterYourHeight = 'Insira sua altura';
   static const String enterYourWeight = 'Insira seu peso';
   static const String requiredField = 'Campo Obrigatório';
+  static const String deleteHistory = 'Deletar histórico';
   static const String calculateIMC = 'Calcular IMC';
   static const String connectedAs = 'Conectado como';
   static const String imcTextResult2 =

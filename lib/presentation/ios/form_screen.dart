@@ -42,6 +42,8 @@ class IosFormScreen extends StatelessWidget {
                 ),
               ),
               IMCPrimaryButton(
+                text: AppStrings.calculateIMC,
+                color: Theme.of(context).primaryColor,
                 onPressed: () async => await _calculateIMC(context, _formKey),
               ),
             ],

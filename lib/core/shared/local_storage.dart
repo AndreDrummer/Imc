@@ -13,16 +13,26 @@ class LocalStorage {
   }
 
   static Future persistIMCOnStorage(ImcModel imc) async {
-    if (Hive.isBoxOpen(_imcDataHistoryBoxName)) {
-      _imcBox = Hive.box(_imcDataHistoryBoxName);
-    } else {
-      _imcBox = await Hive.openBox<ImcModel>(_imcDataHistoryBoxName);
-    }
-
+    await getOrOpenBox();
     _imcBox.put(imc.id, imc);
   }
 
   static Future<List<ImcModel>> loadIMCFromStorage() async {
+    await getOrOpenBox();
     return List<ImcModel>.from(_imcBox.values.map((e) => e));
+  }
+
+  static Future<void> deleteIMCStorage() async {
+    await getOrOpenBox();
+    return _imcBox.deleteFromDisk();
+  }
+
+  static Future<void> getOrOpenBox() async {
+    if (await Hive.boxExists(_imcDataHistoryBoxName) &&
+        Hive.isBoxOpen(_imcDataHistoryBoxName)) {
+      _imcBox = Hive.box(_imcDataHistoryBoxName);
+    } else {
+      _imcBox = await Hive.openBox<ImcModel>(_imcDataHistoryBoxName);
+    }
   }
 }

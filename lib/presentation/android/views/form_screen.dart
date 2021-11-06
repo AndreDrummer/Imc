@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:imc/core/bloc/history_cubit.dart';
 import 'package:imc/core/bloc/imc_cubit.dart';
 import 'package:imc/core/constants/app_strings.dart';
 import 'package:imc/core/models/imc_model.dart';
+import 'package:imc/presentation/android/widget/history_item.dart';
 import 'package:imc/presentation/android/widget/imc_field.dart';
 import 'package:imc/presentation/android/widget/imc_primary_button.dart';
 import 'package:imc/presentation/android/widget/pop_dialog.dart';
@@ -37,11 +39,23 @@ class AndroidFormScreen extends StatelessWidget {
                         labelText: AppStrings.enterYourWeight,
                         hintText: AppStrings.weightHint,
                       ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 12.0),
+                        child: const Text(
+                          'Ultimos cálculos',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                      LastCalcs()
                     ],
                   ),
                 ),
               ),
               IMCPrimaryButton(
+                text: AppStrings.calculateIMC,
+                color: Theme.of(context).primaryColor,
                 onPressed: () async => await _calculateIMC(context, _formKey),
               ),
             ],
@@ -63,5 +77,30 @@ class AndroidFormScreen extends StatelessWidget {
         ),
       );
     }
+  }
+}
+
+class LastCalcs extends StatelessWidget {
+  const LastCalcs({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<void>(
+      future: context.read<IMCHistoryCubit>().loadIMCHistoryFromStorage(),
+      builder: (context, _) {
+        return Container(
+          height: 200,
+          child: ListView(
+            children: context
+                .read<IMCHistoryCubit>()
+                .subListImcHistory()
+                .map((imcItem) => HistoryItem(imc: imcItem))
+                .toList(),
+          ),
+        );
+      },
+    );
   }
 }
