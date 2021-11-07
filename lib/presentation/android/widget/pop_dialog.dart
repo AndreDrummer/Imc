@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:imc/core/bloc/imc_cubit.dart';
 import 'package:imc/core/constants/app_strings.dart';
 import 'package:imc/core/models/imc_model.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SuccessDialog extends StatelessWidget {
   const SuccessDialog({
@@ -18,19 +19,43 @@ class SuccessDialog extends StatelessWidget {
       builder: (context, imcState) {
         return AlertDialog(
           content: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
               const Text(AppStrings.imcTextResult),
-              Text(imcState.imcValue.toString()),
-              const Text(AppStrings.imcTextResult2),
-              Row(
-                  children: List.generate(
-                6,
-                (index) => const Icon(
-                  Icons.star,
-                  color: Colors.amber,
+              Padding(
+                padding: EdgeInsets.all(16.0.h),
+                child: Text(
+                  imcState.imcValue.toString(),
+                  style: TextStyle(
+                    fontSize: 48.sp,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
-              ))
+              ),
+              const Text(AppStrings.imcTextResult2),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  '${imcState.description}.',
+                  style: TextStyle(
+                    color: Colors.grey,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: List.generate(
+                      imcState.stars,
+                      (index) => const Icon(
+                        Icons.star,
+                        color: Colors.amber,
+                      ),
+                    )),
+              )
             ],
           ),
           actions: [

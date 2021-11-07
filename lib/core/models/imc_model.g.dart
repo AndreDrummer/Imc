@@ -18,12 +18,12 @@ class ImcModelAdapter extends TypeAdapter<ImcModel> {
     };
     return ImcModel(
       description: fields[0] as String,
-      dateTime: fields[6] as DateTime?,
+      dateTime: fields[6] as DateTime,
       imcValue: fields[1] as double,
       height: fields[2] as double,
       weight: fields[3] as double,
       id: fields[4] as String,
-    )..stars = fields[5] as int?;
+    )..stars = fields[5] as int;
   }
 
   @override
@@ -64,14 +64,12 @@ class ImcModelAdapter extends TypeAdapter<ImcModel> {
 ImcModel _$ImcModelFromJson(Map<String, dynamic> json) {
   return ImcModel(
     description: json['description'] as String,
-    dateTime: json['dateTime'] == null
-        ? null
-        : DateTime.parse(json['dateTime'] as String),
+    dateTime: DateTime.parse(json['dateTime'] as String),
     imcValue: (json['imcValue'] as num).toDouble(),
     height: (json['height'] as num).toDouble(),
     weight: (json['weight'] as num).toDouble(),
     id: json['id'] as String,
-  )..stars = json['stars'] as int?;
+  )..stars = json['stars'] as int;
 }
 
 Map<String, dynamic> _$ImcModelToJson(ImcModel instance) => <String, dynamic>{
@@ -81,5 +79,5 @@ Map<String, dynamic> _$ImcModelToJson(ImcModel instance) => <String, dynamic>{
       'weight': instance.weight,
       'id': instance.id,
       'stars': instance.stars,
-      'dateTime': instance.dateTime?.toIso8601String(),
+      'dateTime': instance.dateTime.toIso8601String(),
     };

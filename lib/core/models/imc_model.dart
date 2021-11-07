@@ -22,10 +22,10 @@ class ImcModel extends HiveObject {
   String id;
 
   @HiveField(5)
-  int? stars;
+  late int stars;
 
   @HiveField(6)
-  DateTime? dateTime;
+  DateTime dateTime;
 
   ImcModel({
     required this.description,

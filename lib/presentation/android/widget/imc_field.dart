@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:imc/core/constants/app_strings.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class IMCField extends StatelessWidget {
   const IMCField({
@@ -17,7 +18,7 @@ class IMCField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      padding: EdgeInsets.symmetric(vertical: 8.0.h),
       child: TextFormField(
         keyboardType: const TextInputType.numberWithOptions(),
         inputFormatters: [

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class IMCPrimaryButton extends StatelessWidget {
   const IMCPrimaryButton({
@@ -15,7 +16,7 @@ class IMCPrimaryButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 24.0),
+      padding: EdgeInsets.only(top: 24.0.h),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(primary: color),
         onPressed: () => onPressed(),

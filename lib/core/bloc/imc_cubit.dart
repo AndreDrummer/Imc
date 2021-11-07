@@ -64,17 +64,17 @@ class ImcCubit extends Cubit<ImcModel> {
 
   String getIMCDesription(double imc) {
     if (imc < 18.6) {
-      return 'Abaixo do Peso';
+      return AppStrings.underWeight;
     } else if (imc >= 18.6 && imc <= 24.9) {
-      return 'Peso Ideal';
+      return AppStrings.weightIdeal;
     } else if (imc >= 24.9 && imc <= 29.9) {
-      return 'Levemente acima do peso';
+      return AppStrings.sliglyOverWeight;
     } else if (imc >= 24.9 && imc <= 34.9) {
-      return 'Obesidade Grau I';
+      return AppStrings.obesityLevelOne;
     } else if (imc >= 34.9 && imc <= 39.9) {
-      return 'Obesidade Grau II';
+      return AppStrings.obesityLevelTwo;
     } else if (imc >= 40) {
-      return 'Obesidade Grau III';
+      return AppStrings.obesityLevelThree;
     }
     return '';
   }

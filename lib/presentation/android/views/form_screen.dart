@@ -8,6 +8,7 @@ import 'package:imc/presentation/android/widget/history_item.dart';
 import 'package:imc/presentation/android/widget/imc_field.dart';
 import 'package:imc/presentation/android/widget/imc_primary_button.dart';
 import 'package:imc/presentation/android/widget/pop_dialog.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AndroidFormScreen extends StatelessWidget {
   const AndroidFormScreen({Key? key}) : super(key: key);
@@ -19,8 +20,9 @@ class AndroidFormScreen extends StatelessWidget {
     return BlocBuilder<ImcCubit, ImcModel>(
       builder: (context, imcState) {
         return Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: EdgeInsets.all(16.0.h),
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const Text(AppStrings.imcInfo),
@@ -39,16 +41,23 @@ class AndroidFormScreen extends StatelessWidget {
                         labelText: AppStrings.enterYourWeight,
                         hintText: AppStrings.weightHint,
                       ),
+                      Divider(),
                       Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 12.0),
+                        padding: EdgeInsets.symmetric(
+                          vertical: 12.0.h,
+                        ),
                         child: const Text(
-                          'Ultimos cálculos',
+                          AppStrings.lastCalcs,
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
                           ),
                         ),
                       ),
-                      LastCalcs()
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 12.0.h),
+                        child: LastCalcs(),
+                      ),
+                      Divider(),
                     ],
                   ),
                 ),
@@ -87,15 +96,16 @@ class LastCalcs extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<void>(
+    return FutureBuilder(
       future: context.read<IMCHistoryCubit>().loadIMCHistoryFromStorage(),
-      builder: (context, _) {
+      builder: (context, snpshot) {
         return Container(
-          height: 200,
+          height: 128.0.h,
           child: ListView(
             children: context
                 .read<IMCHistoryCubit>()
                 .subListImcHistory()
+                .reversed
                 .map((imcItem) => HistoryItem(imc: imcItem))
                 .toList(),
           ),

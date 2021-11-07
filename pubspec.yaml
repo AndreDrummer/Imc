@@ -31,9 +31,12 @@ dependencies:
     sdk: flutter
   extended_masked_text: ^2.3.1
   font_awesome_flutter: ^9.2.0  
+  flutter_screenutil: ^5.0.0+2
+  path_provider: ^2.0.6
   flutter_bloc: ^7.3.1
   hive_flutter: ^1.1.0
   json_annotation:
+  intl: ^0.17.0
   hive: ^2.0.4
   uuid: ^3.0.5
 

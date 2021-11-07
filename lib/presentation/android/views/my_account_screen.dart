@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:imc/core/constants/app_strings.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MyAccountScreen extends StatelessWidget {
   const MyAccountScreen({this.user, Key? key}) : super(key: key);
@@ -19,9 +20,9 @@ class MyAccountScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Icon(FontAwesomeIcons.google),
-          SizedBox(height: 16.0),
+          SizedBox(height: 16.0.h),
           Text('${AppStrings.connectedAs} ${user}'),
-          SizedBox(height: 16.0),
+          SizedBox(height: 16.0.h),
           ElevatedButton(
             onPressed: () {},
             child: Text(AppStrings.unconnect),
@@ -36,17 +37,17 @@ class MyAccountScreen extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(height: 16.0),
+          SizedBox(height: 16.0.h),
           Text(
             AppStrings.noAccountConnected,
             textAlign: TextAlign.center,
           ),
-          SizedBox(height: 8.0),
+          SizedBox(height: 8.0.h),
           Text(
             AppStrings.noAccountConnectedInfo,
             textAlign: TextAlign.center,
           ),
-          SizedBox(height: 16.0),
+          SizedBox(height: 16.0.h),
           ElevatedButton.icon(
             onPressed: () {},
             label: Text(AppStrings.connect),

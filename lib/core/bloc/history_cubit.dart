@@ -22,7 +22,7 @@ class IMCHistoryCubit extends Cubit<List<ImcModel>> {
     if (imcHistory.length < length) {
       return imcHistory;
     } else {
-      return imcHistory.sublist(0, length);
+      return imcHistory.reversed.toList().sublist(0, length);
     }
   }
 }

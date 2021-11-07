@@ -42,15 +42,15 @@ class _AndroidMainState extends State<AndroidMain> {
           items: [
             BottomNavigationBarItem(
               icon: Icon(Icons.calculate_outlined),
-              label: 'IMC',
+              label: AppStrings.imc,
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.description_outlined),
-              label: 'Histórico',
+              label: AppStrings.history,
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.account_circle_outlined),
-              label: 'Minha conta',
+              label: AppStrings.myAccount,
             )
           ],
         ),

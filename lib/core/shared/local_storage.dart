@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hive/hive.dart';
 import 'package:imc/core/models/imc_model.dart';
+import 'package:path_provider/path_provider.dart';
 
 class LocalStorage {
   static final String _imcDataHistoryBoxName = 'imcDataHistory';
@@ -19,7 +22,8 @@ class LocalStorage {
 
   static Future<List<ImcModel>> loadIMCFromStorage() async {
     await getOrOpenBox();
-    return List<ImcModel>.from(_imcBox.values.map((e) => e));
+    var list = List<ImcModel>.from(_imcBox.values.map((e) => e));
+    return list;
   }
 
   static Future<void> deleteIMCStorage() async {
@@ -28,11 +32,14 @@ class LocalStorage {
   }
 
   static Future<void> getOrOpenBox() async {
-    if (await Hive.boxExists(_imcDataHistoryBoxName) &&
-        Hive.isBoxOpen(_imcDataHistoryBoxName)) {
+    if (Hive.isBoxOpen(_imcDataHistoryBoxName)) {
       _imcBox = Hive.box(_imcDataHistoryBoxName);
     } else {
-      _imcBox = await Hive.openBox<ImcModel>(_imcDataHistoryBoxName);
+      Directory appDocDir = await getApplicationDocumentsDirectory();
+      String appDocPath = appDocDir.path;
+
+      _imcBox = await Hive.openBox<ImcModel>(_imcDataHistoryBoxName,
+          path: appDocPath);
     }
   }
 }

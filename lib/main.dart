@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:imc/core/bloc/history_cubit.dart';
 import 'package:imc/core/shared/local_storage.dart';
 import 'package:imc/platform_main/android_main.dart';
@@ -27,7 +28,10 @@ class Home extends StatelessWidget {
           create: (_) => IMCHistoryCubit(),
         ),
       ],
-      child: Platform.isAndroid ? AndroidMain() : const IOSMain(),
+      child: ScreenUtilInit(
+        designSize: Size(360, 690),
+        builder: () => Platform.isAndroid ? AndroidMain() : const IOSMain(),
+      ),
     );
   }
 }
