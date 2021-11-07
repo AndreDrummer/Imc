@@ -43,17 +43,6 @@ class AndroidFormScreen extends StatelessWidget {
                       ),
                       Divider(),
                       Padding(
-                        padding: EdgeInsets.symmetric(
-                          vertical: 12.0.h,
-                        ),
-                        child: const Text(
-                          AppStrings.lastCalcs,
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
-                      Padding(
                         padding: EdgeInsets.symmetric(horizontal: 12.0.h),
                         child: LastCalcs(),
                       ),
@@ -96,19 +85,40 @@ class LastCalcs extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var imcHistoryProvider = context.read<IMCHistoryCubit>();
+    var isNotEmpty = imcHistoryProvider.subListImcHistory().isNotEmpty;
+
     return FutureBuilder(
-      future: context.read<IMCHistoryCubit>().loadIMCHistoryFromStorage(),
+      future: imcHistoryProvider.loadIMCHistoryFromStorage(),
       builder: (context, snpshot) {
-        return Container(
-          height: 128.0.h,
-          child: ListView(
-            children: context
-                .read<IMCHistoryCubit>()
-                .subListImcHistory()
-                .reversed
-                .map((imcItem) => HistoryItem(imc: imcItem))
-                .toList(),
-          ),
+        return Column(
+          children: [
+            Visibility(
+              visible: isNotEmpty,
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  vertical: 12.0.h,
+                ),
+                child: const Text(
+                  AppStrings.lastCalcs,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            ),
+            Container(
+              height: 128.0.h,
+              child: ListView(
+                children: context
+                    .read<IMCHistoryCubit>()
+                    .subListImcHistory()
+                    .reversed
+                    .map((imcItem) => HistoryItem(imc: imcItem))
+                    .toList(),
+              ),
+            ),
+          ],
         );
       },
     );
