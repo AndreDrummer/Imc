@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "238884819758",
+    "project_id": "imc-checker",
+    "storage_bucket": "imc-checker.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:238884819758:android:9c8c20ca5895f27b9760bf",
+        "android_client_info": {
+          "package_name": "com.anjasolutions.imc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "238884819758-und20aj4dsch9hbkoak20640ke9fej96.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFGqV0Z1TyXboZfV4m28i_OuZQ66dFyaw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "238884819758-und20aj4dsch9hbkoak20640ke9fej96.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

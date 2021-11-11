@@ -1,4 +1,4 @@
-package com.example.imc
+package com.anjasolutions.imc
 
 import io.flutter.embedding.android.FlutterActivity
 

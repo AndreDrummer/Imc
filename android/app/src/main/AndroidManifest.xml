@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.imc">
+    package="com.anjasolutions.imc">
    <application
         android:label="imc"
         android:icon="@mipmap/ic_launcher">

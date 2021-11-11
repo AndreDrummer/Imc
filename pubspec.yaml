@@ -32,6 +32,7 @@ dependencies:
   extended_masked_text: ^2.3.1
   font_awesome_flutter: ^9.2.0  
   flutter_screenutil: ^5.0.0+2
+  firebase_core: ^1.10.0
   brasil_fields: ^1.2.0
   path_provider: ^2.0.0
   flutter_bloc: ^7.3.1
