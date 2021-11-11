@@ -7,6 +7,7 @@ class AppStrings {
   static const String noAccountConnected = 'Nenhuma conta conectada';
   static const String weightIdeal = 'No peso Ideal para sua altura';
   static const String sliglyOverWeight = 'Levemente acima do peso';
+  static const String clearHistory = 'Deseja limpar seu histórico?';
   static const String fillAllFields = 'Preencha todos os campos!';
   static const String obesityLevelThree = 'Obesidade Grau III';
   static const String obesityLevelTwo = 'Obesidade Grau II';
@@ -30,6 +31,8 @@ class AppStrings {
   static const String weightHint = '81.80';
   static const String connect = 'Conectar';
   static const String heightHint = '1.80';
+  static const String yes = 'Sim';
   static const String imc = 'IMC';
+  static const String no = 'Não';
   static const String OK = 'OK';
 }

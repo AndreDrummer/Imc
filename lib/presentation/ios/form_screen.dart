@@ -1,11 +1,12 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:imc/core/bloc/imc_cubit.dart';
-import 'package:imc/core/constants/app_strings.dart';
-import 'package:imc/core/models/imc_model.dart';
-import 'package:imc/presentation/android/widget/imc_field.dart';
 import 'package:imc/presentation/android/widget/imc_primary_button.dart';
 import 'package:imc/presentation/android/widget/pop_dialog.dart';
+import 'package:imc/presentation/android/widget/imc_field.dart';
+import 'package:imc/core/constants/app_strings.dart';
+import 'package:brasil_fields/brasil_fields.dart';
+import 'package:imc/core/models/imc_model.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:imc/core/bloc/imc_cubit.dart';
+import 'package:flutter/material.dart';
 
 class IosFormScreen extends StatelessWidget {
   const IosFormScreen({Key? key}) : super(key: key);
@@ -27,15 +28,39 @@ class IosFormScreen extends StatelessWidget {
                   key: _formKey,
                   child: ListView(
                     children: [
-                      IMCField(
-                        controller: context.read<ImcCubit>().heightCtrl,
-                        labelText: AppStrings.enterYourHeight,
-                        hintText: AppStrings.heightHint,
+                      StreamBuilder<ImcModel>(
+                        stream: context.read<ImcCubit>().stream,
+                        builder: (context, snapshot) {
+                          String? fieldvalue = snapshot.data!.height >= 0.0
+                              ? snapshot.data?.height.toString()
+                              : null;
+
+                          return IMCField(
+                            onChanged: (value) =>
+                                context.read<ImcCubit>().setHeight(value),
+                            textInputFormatter: AlturaInputFormatter(),
+                            labelText: AppStrings.enterYourHeight,
+                            hintText: AppStrings.heightHint,
+                            currentValue: fieldvalue,
+                          );
+                        },
                       ),
-                      IMCField(
-                        controller: context.read<ImcCubit>().weightCtrl,
-                        labelText: AppStrings.enterYourWeight,
-                        hintText: AppStrings.weightHint,
+                      StreamBuilder<ImcModel>(
+                        stream: context.read<ImcCubit>().stream,
+                        builder: (context, snapshot) {
+                          String? fieldvalue = snapshot.data!.height >= 0.0
+                              ? snapshot.data?.height.toString()
+                              : null;
+
+                          return IMCField(
+                            onChanged: (value) =>
+                                context.read<ImcCubit>().setWeight(value),
+                            textInputFormatter: PesoInputFormatter(),
+                            labelText: AppStrings.enterYourWeight,
+                            hintText: AppStrings.weightHint,
+                            currentValue: fieldvalue,
+                          );
+                        },
                       ),
                     ],
                   ),
@@ -60,7 +85,7 @@ class IosFormScreen extends StatelessWidget {
       context.read<ImcCubit>().calculateIMC();
       await showDialog(
         context: context,
-        builder: (context) => SuccessDialog(
+        builder: (_) => SuccessDialog(
           onOkButtonHitted: () => context.read<ImcCubit>().reset(),
         ),
       );

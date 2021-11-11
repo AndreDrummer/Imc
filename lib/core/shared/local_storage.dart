@@ -1,9 +1,8 @@
-import 'dart:io';
-
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:hive/hive.dart';
 import 'package:imc/core/models/imc_model.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:hive/hive.dart';
+import 'dart:io';
 
 class LocalStorage {
   static final String _imcDataHistoryBoxName = 'imcDataHistory';

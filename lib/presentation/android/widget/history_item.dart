@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:imc/core/constants/app_strings.dart';
-import 'package:imc/core/models/imc_model.dart';
-import 'package:imc/core/shared/formatters.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:imc/core/constants/app_strings.dart';
+import 'package:imc/core/shared/formatters.dart';
+import 'package:imc/core/models/imc_model.dart';
+import 'package:flutter/material.dart';
 
 class HistoryItem extends StatelessWidget {
   const HistoryItem({

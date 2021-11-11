@@ -1,11 +1,12 @@
+import 'package:imc/presentation/android/widget/imc_primary_button.dart';
+import 'package:imc/presentation/android/widget/history_item.dart';
+import 'package:imc/presentation/android/widget/pop_dialog.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:imc/core/constants/app_strings.dart';
 import 'package:imc/core/bloc/history_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:imc/core/constants/app_strings.dart';
 import 'package:imc/core/models/imc_model.dart';
 import 'package:flutter/material.dart';
-import 'package:imc/presentation/android/widget/history_item.dart';
-import 'package:imc/presentation/android/widget/imc_primary_button.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HistoryScreen extends StatelessWidget {
   const HistoryScreen({Key? key}) : super(key: key);
@@ -14,7 +15,7 @@ class HistoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<IMCHistoryCubit, List<ImcModel>>(
       builder: (context, imcHistoryState) {
-        var list = context.read<IMCHistoryCubit>().imcHistory.reversed.toList();
+        var list = context.read<IMCHistoryCubit>().getIMCHistory().toList();
         return imcHistoryState.isEmpty
             ? EmptyHistory()
             : Padding(
@@ -31,8 +32,16 @@ class HistoryScreen extends StatelessWidget {
                       ),
                     ),
                     IMCPrimaryButton(
-                      onPressed: () {
-                        context.read<IMCHistoryCubit>().deleteIMCStorage();
+                      onPressed: () async {
+                        await showDialog(
+                          context: context,
+                          builder: (context) => QuestionDialog(
+                            onOkButtonHitted: () => context
+                                .read<IMCHistoryCubit>()
+                                .deleteIMCStorage(),
+                            message: AppStrings.clearHistory,
+                          ),
+                        );
                       },
                       color: Colors.red,
                       text: AppStrings.deleteHistory,

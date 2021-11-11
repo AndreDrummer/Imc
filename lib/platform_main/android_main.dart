@@ -1,8 +1,8 @@
-import 'package:imc/core/constants/app_strings.dart';
-import 'package:imc/presentation/android/views/form_screen.dart';
-import 'package:flutter/material.dart';
-import 'package:imc/presentation/android/views/history_screen.dart';
 import 'package:imc/presentation/android/views/my_account_screen.dart';
+import 'package:imc/presentation/android/views/history_screen.dart';
+import 'package:imc/presentation/android/views/form_screen.dart';
+import 'package:imc/core/constants/app_strings.dart';
+import 'package:flutter/material.dart';
 
 class AndroidMain extends StatefulWidget {
   AndroidMain({Key? key}) : super(key: key);

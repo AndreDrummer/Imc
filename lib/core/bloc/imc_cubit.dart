@@ -1,23 +1,29 @@
-import 'dart:math';
-
-import 'package:extended_masked_text/extended_masked_text.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:imc/core/constants/app_strings.dart';
-import 'package:imc/core/models/imc_model.dart';
-import 'package:imc/core/shared/exceptions.dart';
 import 'package:imc/core/shared/local_storage.dart';
+import 'package:imc/core/shared/exceptions.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:imc/core/models/imc_model.dart';
+import 'package:flutter/foundation.dart';
 import 'package:uuid/uuid.dart';
+import 'dart:math';
 
 class ImcCubit extends Cubit<ImcModel> {
   ImcCubit() : super(ImcModel.initial());
 
-  var weightCtrl = MaskedTextController(mask: '00.00');
-  var heightCtrl = MaskedTextController(mask: '0.00');
+  late String _weight;
+  late String _height;
 
   bool allFieldsAreValids() {
-    return heightCtrl.text.trim().isNotEmpty &&
-        weightCtrl.text.trim().isNotEmpty;
+    print('here $_weight $_height');
+    return _height.trim().isNotEmpty && _weight.trim().isNotEmpty;
+  }
+
+  void setWeight(String value) {
+    _weight = value.replaceAll(',', '.');
+  }
+
+  void setHeight(String value) {
+    _height = value.replaceAll(',', '.');
   }
 
   void calculateIMC() {
@@ -27,8 +33,8 @@ class ImcCubit extends Cubit<ImcModel> {
 
         final generatedIMC = ImcModel(
           imcValue: double.parse(imcCalc.toStringAsFixed(2)),
-          height: double.tryParse(heightCtrl.text) ?? 0.0,
-          weight: double.tryParse(weightCtrl.text) ?? 0.0,
+          height: double.tryParse(_height) ?? 0.0,
+          weight: double.tryParse(_weight) ?? 0.0,
           description: getIMCDesription(imcCalc),
           dateTime: DateTime.now(),
           id: Uuid().v4(),
@@ -45,20 +51,20 @@ class ImcCubit extends Cubit<ImcModel> {
   }
 
   double nickTrefethenIMC() {
-    final height = double.tryParse(heightCtrl.text) ?? 0.0;
-    final weight = double.tryParse(weightCtrl.text) ?? 0.0;
+    final height = double.tryParse(_height) ?? 0.0;
+    final weight = double.tryParse(_weight) ?? 0.0;
     return 1.3 * weight / pow(height, 2.5);
   }
 
   double defaultIMC() {
-    final height = double.tryParse(heightCtrl.text) ?? 0.0;
-    final weight = double.tryParse(weightCtrl.text) ?? 0.0;
+    final height = double.tryParse(_height) ?? 0.0;
+    final weight = double.tryParse(_weight) ?? 0.0;
     return weight / (height * height);
   }
 
   void reset() {
-    heightCtrl.clear();
-    weightCtrl.clear();
+    _height = '';
+    _weight = '';
     emit(ImcModel.initial());
   }
 

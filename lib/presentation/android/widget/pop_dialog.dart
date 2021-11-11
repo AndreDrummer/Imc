@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:imc/core/bloc/imc_cubit.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:imc/core/constants/app_strings.dart';
 import 'package:imc/core/models/imc_model.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:imc/core/bloc/imc_cubit.dart';
+import 'package:flutter/material.dart';
 
 class SuccessDialog extends StatelessWidget {
   const SuccessDialog({
@@ -24,7 +24,7 @@ class SuccessDialog extends StatelessWidget {
             children: [
               const Text(AppStrings.imcTextResult),
               Padding(
-                padding: EdgeInsets.all(16.0.h),
+                padding: EdgeInsets.all(12.0.h),
                 child: Text(
                   imcState.imcValue.toString(),
                   style: TextStyle(
@@ -47,14 +47,15 @@ class SuccessDialog extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: List.generate(
-                      imcState.stars,
-                      (index) => const Icon(
-                        Icons.star,
-                        color: Colors.amber,
-                      ),
-                    )),
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: List.generate(
+                    imcState.stars,
+                    (index) => const Icon(
+                      Icons.star,
+                      color: Colors.amber,
+                    ),
+                  ),
+                ),
               )
             ],
           ),
@@ -97,6 +98,40 @@ class ErrorDialog extends StatelessWidget {
         TextButton(
           onPressed: () => Navigator.pop(context),
           child: const Text(AppStrings.OK),
+        )
+      ],
+    );
+  }
+}
+
+class QuestionDialog extends StatelessWidget {
+  const QuestionDialog({
+    required this.onOkButtonHitted,
+    required this.message,
+    Key? key,
+  }) : super(key: key);
+
+  final String message;
+  final Function() onOkButtonHitted;
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: Text(AppStrings.deleteHistory),
+      content: Text(message),
+      actions: [
+        TextButton(
+          onPressed: () {
+            onOkButtonHitted();
+            Navigator.pop(context);
+          },
+          child: const Text(AppStrings.yes),
+        ),
+        TextButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: const Text(AppStrings.no),
         )
       ],
     );

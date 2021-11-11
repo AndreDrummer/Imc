@@ -1,14 +1,14 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:imc/core/bloc/history_cubit.dart';
-import 'package:imc/core/bloc/imc_cubit.dart';
-import 'package:imc/core/constants/app_strings.dart';
-import 'package:imc/core/models/imc_model.dart';
-import 'package:imc/presentation/android/widget/history_item.dart';
-import 'package:imc/presentation/android/widget/imc_field.dart';
 import 'package:imc/presentation/android/widget/imc_primary_button.dart';
+import 'package:imc/presentation/android/widget/last_calcs.dart';
 import 'package:imc/presentation/android/widget/pop_dialog.dart';
+import 'package:imc/presentation/android/widget/imc_field.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:imc/core/constants/app_strings.dart';
+import 'package:brasil_fields/brasil_fields.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:imc/core/models/imc_model.dart';
+import 'package:imc/core/bloc/imc_cubit.dart';
+import 'package:flutter/material.dart';
 
 class AndroidFormScreen extends StatelessWidget {
   const AndroidFormScreen({Key? key}) : super(key: key);
@@ -31,15 +31,41 @@ class AndroidFormScreen extends StatelessWidget {
                   key: _formKey,
                   child: ListView(
                     children: [
-                      IMCField(
-                        controller: context.read<ImcCubit>().heightCtrl,
-                        labelText: AppStrings.enterYourHeight,
-                        hintText: AppStrings.heightHint,
+                      StreamBuilder<ImcModel>(
+                        stream: context.read<ImcCubit>().stream,
+                        builder: (context, snapshot) {
+                          String? fieldvalue =
+                              snapshot.hasData && snapshot.data!.height > 0.0
+                                  ? snapshot.data?.height.toString()
+                                  : null;
+
+                          return IMCField(
+                            onChanged: (value) =>
+                                context.read<ImcCubit>().setHeight(value),
+                            currentValue: fieldvalue,
+                            textInputFormatter: AlturaInputFormatter(),
+                            labelText: AppStrings.enterYourHeight,
+                            hintText: AppStrings.heightHint,
+                          );
+                        },
                       ),
-                      IMCField(
-                        controller: context.read<ImcCubit>().weightCtrl,
-                        labelText: AppStrings.enterYourWeight,
-                        hintText: AppStrings.weightHint,
+                      StreamBuilder<ImcModel>(
+                        stream: context.read<ImcCubit>().stream,
+                        builder: (context, snapshot) {
+                          String? fieldvalue =
+                              snapshot.hasData && snapshot.data!.height > 0.0
+                                  ? snapshot.data?.height.toString()
+                                  : null;
+
+                          return IMCField(
+                            onChanged: (value) =>
+                                context.read<ImcCubit>().setWeight(value),
+                            currentValue: fieldvalue,
+                            textInputFormatter: PesoInputFormatter(),
+                            labelText: AppStrings.enterYourWeight,
+                            hintText: AppStrings.weightHint,
+                          );
+                        },
                       ),
                       Divider(),
                       Padding(
@@ -75,52 +101,5 @@ class AndroidFormScreen extends StatelessWidget {
         ),
       );
     }
-  }
-}
-
-class LastCalcs extends StatelessWidget {
-  const LastCalcs({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    var imcHistoryProvider = context.read<IMCHistoryCubit>();
-    var isNotEmpty = imcHistoryProvider.subListImcHistory().isNotEmpty;
-
-    return FutureBuilder(
-      future: imcHistoryProvider.loadIMCHistoryFromStorage(),
-      builder: (context, snpshot) {
-        return Column(
-          children: [
-            Visibility(
-              visible: isNotEmpty,
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                  vertical: 12.0.h,
-                ),
-                child: const Text(
-                  AppStrings.lastCalcs,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ),
-            ),
-            Container(
-              height: 128.0.h,
-              child: ListView(
-                children: context
-                    .read<IMCHistoryCubit>()
-                    .subListImcHistory()
-                    .reversed
-                    .map((imcItem) => HistoryItem(imc: imcItem))
-                    .toList(),
-              ),
-            ),
-          ],
-        );
-      },
-    );
   }
 }
