@@ -38,7 +38,7 @@ class SuccessDialog extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   '${imcState.description}.',
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.grey,
                     fontWeight: FontWeight.w700,
                   ),
@@ -66,7 +66,7 @@ class SuccessDialog extends StatelessWidget {
                 Navigator.pop(context);
               },
               child: const Text(
-                AppStrings.OK,
+                AppStrings.ok,
               ),
             )
           ],
@@ -97,7 +97,7 @@ class ErrorDialog extends StatelessWidget {
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context),
-          child: const Text(AppStrings.OK),
+          child: const Text(AppStrings.ok),
         )
       ],
     );
@@ -117,7 +117,7 @@ class QuestionDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text(AppStrings.deleteHistory),
+      title: const Text(AppStrings.deleteHistory),
       content: Text(message),
       actions: [
         TextButton(

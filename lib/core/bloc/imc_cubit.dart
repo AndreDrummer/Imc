@@ -14,7 +14,7 @@ class ImcCubit extends Cubit<ImcModel> {
   late String _height;
 
   bool allFieldsAreValids() {
-    print('here $_weight $_height');
+    debugPrint('here $_weight $_height');
     return _height.trim().isNotEmpty && _weight.trim().isNotEmpty;
   }
 
@@ -37,7 +37,7 @@ class ImcCubit extends Cubit<ImcModel> {
           weight: double.tryParse(_weight) ?? 0.0,
           description: getIMCDesription(imcCalc),
           dateTime: DateTime.now(),
-          id: Uuid().v4(),
+          id: const Uuid().v4(),
         );
 
         LocalStorage.persistIMCOnStorage(generatedIMC);

@@ -5,11 +5,11 @@ import 'package:hive/hive.dart';
 import 'dart:io';
 
 class LocalStorage {
-  static final String _imcDataHistoryBoxName = 'imcDataHistory';
+  static const String _imcDataHistoryBoxName = 'imcDataHistory';
   static late Box<ImcModel> _imcBox;
 
   static Future<void> initializeLocalStorage() async {
-    await Hive
+    Hive
       ..initFlutter()
       ..registerAdapter(ImcModelAdapter());
   }

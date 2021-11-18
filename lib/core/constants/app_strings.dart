@@ -34,5 +34,5 @@ class AppStrings {
   static const String yes = 'Sim';
   static const String imc = 'IMC';
   static const String no = 'Não';
-  static const String OK = 'OK';
+  static const String ok = 'OK';
 }

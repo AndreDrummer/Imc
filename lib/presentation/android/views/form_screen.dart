@@ -67,12 +67,12 @@ class AndroidFormScreen extends StatelessWidget {
                           );
                         },
                       ),
-                      Divider(),
+                      const Divider(),
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 12.0.h),
-                        child: LastCalcs(),
+                        child: const LastCalcs(),
                       ),
-                      Divider(),
+                      const Divider(),
                     ],
                   ),
                 ),

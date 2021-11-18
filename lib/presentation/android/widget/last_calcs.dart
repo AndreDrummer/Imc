@@ -34,7 +34,7 @@ class LastCalcs extends StatelessWidget {
                 ),
               ),
             ),
-            Container(
+            SizedBox(
               height: 128.0.h,
               child: ListView(
                 children: imcHistoryProvider

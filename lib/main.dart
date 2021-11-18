@@ -31,8 +31,9 @@ class Home extends StatelessWidget {
         ),
       ],
       child: ScreenUtilInit(
-        designSize: Size(360, 690),
-        builder: () => Platform.isAndroid ? AndroidMain() : const IOSMain(),
+        designSize: const Size(360, 690),
+        builder: () =>
+            Platform.isAndroid ? const AndroidMain() : const IOSMain(),
       ),
     );
   }

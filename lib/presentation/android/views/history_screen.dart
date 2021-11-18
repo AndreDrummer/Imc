@@ -17,7 +17,7 @@ class HistoryScreen extends StatelessWidget {
       builder: (context, imcHistoryState) {
         var list = context.read<IMCHistoryCubit>().getIMCHistory().toList();
         return imcHistoryState.isEmpty
-            ? EmptyHistory()
+            ? const EmptyHistory()
             : Padding(
                 padding: EdgeInsets.all(8.0.h),
                 child: Column(
@@ -61,7 +61,7 @@ class EmptyHistory extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      child: Text(AppStrings.emptyHistory),
+      child: const Text(AppStrings.emptyHistory),
     );
   }
 }
