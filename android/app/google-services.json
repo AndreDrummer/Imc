@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "238884819758-klfbnp2hqfu6os8oo27ldbpd8crs7a1k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.anjasolutions.imc",
+            "certificate_hash": "7895051ced2ea963ff1179bbe13b586a7804078c"
+          }
+        },
+        {
           "client_id": "238884819758-und20aj4dsch9hbkoak20640ke9fej96.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,6 +37,13 @@
             {
               "client_id": "238884819758-und20aj4dsch9hbkoak20640ke9fej96.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "238884819758-uobbakcb6g7a8g2mfjf5vcdp43j0aj2u.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.anjasolutions.imc"
+              }
             }
           ]
         }
