@@ -18,7 +18,7 @@ class AndroidFormScreen extends StatelessWidget {
     final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
     return BlocBuilder<ImcCubit, ImcModel>(
-      builder: (context, imcState) {
+      builder: (context, _) {
         return Padding(
           padding: EdgeInsets.all(16.0.h),
           child: Column(

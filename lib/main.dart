@@ -1,5 +1,6 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:imc/core/auth/auth_controller.dart';
 import 'package:imc/core/shared/local_storage.dart';
 import 'package:imc/platform_main/android_main.dart';
 import 'package:imc/core/bloc/history_cubit.dart';
@@ -13,6 +14,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await LocalStorage.initializeLocalStorage();
   await Firebase.initializeApp();
+  AuthController.authController.checkSignedIn();
   runApp(const Home());
 }
 

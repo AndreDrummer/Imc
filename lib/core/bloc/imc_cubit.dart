@@ -14,7 +14,6 @@ class ImcCubit extends Cubit<ImcModel> {
   late String _height;
 
   bool allFieldsAreValids() {
-    debugPrint('here $_weight $_height');
     return _height.trim().isNotEmpty && _weight.trim().isNotEmpty;
   }
 

@@ -3,29 +3,38 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthController {
+  AuthController._();
+  static final AuthController authController = AuthController._();
+
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   GoogleSignInAccount? googleUser;
   User? firebaseUser;
 
-  Future<void> googleSignIn() async {
+  Future<void> checkSignedIn() async {
     googleUser = _googleSignIn.currentUser;
+    googleUser ??= await _googleSignIn.signInSilently();
     firebaseUser = _auth.currentUser;
+  }
 
-    try {
-      googleUser ??= await _googleSignIn.signIn();
-      GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
+  Future<void> googleSignIn() async {
+    await checkSignedIn();
 
-      if (firebaseUser == null) {
+    if (firebaseUser == null) {
+      try {
+        googleUser ??= await _googleSignIn.signIn();
+        GoogleSignInAuthentication googleAuth =
+            await googleUser!.authentication;
+
         AuthCredential credential = GoogleAuthProvider.credential(
           accessToken: googleAuth.accessToken,
           idToken: googleAuth.idToken,
         );
         firebaseUser = (await _auth.signInWithCredential(credential)).user;
+      } catch (error) {
+        debugPrint(error.toString());
       }
-    } catch (error) {
-      debugPrint(error.toString());
     }
   }
 

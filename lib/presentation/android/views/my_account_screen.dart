@@ -1,36 +1,53 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:imc/core/auth/auth_controller.dart';
 import 'package:imc/core/constants/app_strings.dart';
 import 'package:flutter/material.dart';
+import 'package:imc/presentation/android/widget/loading_widget.dart';
 
 class MyAccountScreen extends StatelessWidget {
-  const MyAccountScreen({
-    required this.authController,
-    Key? key,
-  }) : super(key: key);
-
-  final AuthController authController;
+  const MyAccountScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return authController.firebaseUser == null
-        ? _unloggedScreen()
-        : _loggedScreen();
+    return StreamBuilder<User?>(
+      stream: FirebaseAuth.instance.authStateChanges(),
+      builder: (context, _) {
+        if (AuthController.authController.firebaseUser != null) {
+          return _loggedScreen(
+            userLoggedName:
+                AuthController.authController.firebaseUser!.displayName!,
+            callbackSignOut: () async =>
+                AuthController.authController.signOut(),
+          );
+        } else if (AuthController.authController.firebaseUser == null) {
+          return _unloggedScreen(
+            callbackSignIn: () async {
+              AuthController.authController.googleSignIn();
+            },
+          );
+        } else {
+          return const LoadingWidget();
+        }
+      },
+    );
   }
 
-  Widget _loggedScreen() {
+  Widget _loggedScreen({
+    required String userLoggedName,
+    required Future Function() callbackSignOut,
+  }) {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Icon(FontAwesomeIcons.google),
           SizedBox(height: 16.0.h),
-          Text(
-              '${AppStrings.connectedAs} ${authController.firebaseUser?.displayName.toString()}'),
+          Text('${AppStrings.connectedAs} $userLoggedName'),
           SizedBox(height: 16.0.h),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () async => callbackSignOut(),
             child: const Text(AppStrings.unconnect),
           )
         ],
@@ -38,7 +55,7 @@ class MyAccountScreen extends StatelessWidget {
     );
   }
 
-  Widget _unloggedScreen() {
+  Widget _unloggedScreen({required Future Function() callbackSignIn}) {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -55,9 +72,7 @@ class MyAccountScreen extends StatelessWidget {
           ),
           SizedBox(height: 16.0.h),
           ElevatedButton.icon(
-            onPressed: () async {
-              authController.googleSignIn();
-            },
+            onPressed: () async => callbackSignIn(),
             label: const Text(AppStrings.connect),
             icon: const Icon(FontAwesomeIcons.google),
           )

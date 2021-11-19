@@ -3,6 +3,7 @@ class AppStrings {
       'O índice de massa corporal é uma medida internacional usada para calcular se uma pessoa está no peso ideal.';
   static const String noAccountConnectedInfo =
       'Para salvar seu histórico de cálculos em nuvem, faça login com sua conta do Google.';
+  static const String gettingRegisterData = 'Obtendo dados de registro';
   static const String imcTextResult2 = 'O que significa que você está ';
   static const String noAccountConnected = 'Nenhuma conta conectada';
   static const String weightIdeal = 'No peso Ideal para sua altura';
