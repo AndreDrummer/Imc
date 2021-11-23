@@ -1,5 +1,7 @@
+import 'package:imc/presentation/android/admob/app_ads.dart';
 import 'package:imc/presentation/android/widget/imc_primary_button.dart';
 import 'package:imc/presentation/android/widget/last_calcs.dart';
+import 'package:imc/presentation/android/widget/pop_dialog.dart';
 import 'package:imc/presentation/android/widget/imc_field.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:imc/core/constants/app_strings.dart';
@@ -8,10 +10,22 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:imc/core/models/imc_model.dart';
 import 'package:imc/core/bloc/imc_cubit.dart';
 import 'package:flutter/material.dart';
-import 'package:imc/presentation/android/widget/pop_dialog.dart';
 
-class AndroidFormScreen extends StatelessWidget {
+class AndroidFormScreen extends StatefulWidget {
   const AndroidFormScreen({Key? key}) : super(key: key);
+
+  @override
+  State<AndroidFormScreen> createState() => _AndroidFormScreenState();
+}
+
+class _AndroidFormScreenState extends State<AndroidFormScreen> {
+  AdsManager adsManager = AdsManager();
+
+  @override
+  void initState() {
+    super.initState();
+    adsManager.createBannerAd();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,10 +88,14 @@ class AndroidFormScreen extends StatelessWidget {
                   ),
                 ),
               ),
+              const Spacer(),
               IMCPrimaryButton(
-                text: AppStrings.calculateIMC,
-                color: Theme.of(context).primaryColor,
                 onPressed: () async => await _calculateIMC(context, _formKey),
+                color: Theme.of(context).primaryColor,
+                text: AppStrings.calculateIMC,
+              ),
+              Container(
+                child: adsManager.adBannerWidget(),
               ),
             ],
           ),
@@ -92,6 +110,7 @@ class AndroidFormScreen extends StatelessWidget {
     if (_formKey.currentState?.validate() ?? false) {
       await context.read<ImcCubit>().calculateIMC().then((_) async {
         await showDialog(
+          barrierDismissible: false,
           context: context,
           builder: (context) => SuccessDialog(
             onOkButtonHitted: () => context.read<ImcCubit>().reset(),
@@ -99,5 +118,11 @@ class AndroidFormScreen extends StatelessWidget {
         );
       });
     }
+  }
+
+  @override
+  void dispose() {
+    adsManager.dispose();
+    super.dispose();
   }
 }

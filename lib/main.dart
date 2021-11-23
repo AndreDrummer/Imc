@@ -1,5 +1,6 @@
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:imc/core/auth/auth_controller.dart';
 import 'package:imc/core/shared/local_storage.dart';
 import 'package:imc/platform_main/android_main.dart';
@@ -12,6 +13,7 @@ import 'dart:io';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  MobileAds.instance.initialize();
   await LocalStorage.initializeLocalStorage();
   await Firebase.initializeApp();
   AuthController.authController.checkSignedIn();
