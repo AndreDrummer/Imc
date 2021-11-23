@@ -1,3 +1,4 @@
+import 'package:imc/core/constants/app_colors.dart';
 import 'package:imc/presentation/android/views/my_account_screen.dart';
 import 'package:imc/presentation/android/views/history_screen.dart';
 import 'package:imc/presentation/android/views/form_screen.dart';
@@ -25,12 +26,16 @@ class _AndroidMainState extends State<AndroidMain> {
     return MaterialApp(
       title: AppStrings.appName,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: AppColors.primary,
+        primaryColor: AppColors.primary,
       ),
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          title: const Text(AppStrings.appName),
+          title: const Text(
+            AppStrings.appName,
+            style: TextStyle(color: Colors.white),
+          ),
         ),
         body: _screens.elementAt(_currentScreen),
         bottomNavigationBar: BottomNavigationBar(

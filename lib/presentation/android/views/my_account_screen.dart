@@ -5,6 +5,7 @@ import 'package:imc/core/auth/auth_controller.dart';
 import 'package:imc/core/constants/app_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:imc/presentation/android/admob/app_ads.dart';
+import 'package:imc/presentation/android/widget/imc_primary_button.dart';
 import 'package:imc/presentation/android/widget/loading_widget.dart';
 
 class MyAccountScreen extends StatefulWidget {
@@ -71,9 +72,9 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
           SizedBox(height: 16.0.h),
           Text('${AppStrings.connectedAs} $userLoggedName'),
           SizedBox(height: 16.0.h),
-          ElevatedButton(
+          IMCPrimaryButton(
+            text: AppStrings.unconnect,
             onPressed: () async => callbackSignOut(),
-            child: const Text(AppStrings.unconnect),
           )
         ],
       ),
@@ -98,8 +99,14 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
           SizedBox(height: 16.0.h),
           ElevatedButton.icon(
             onPressed: () async => callbackSignIn(),
-            label: const Text(AppStrings.connect),
-            icon: const Icon(FontAwesomeIcons.google),
+            label: const Text(
+              AppStrings.connect,
+              style: TextStyle(color: Colors.white),
+            ),
+            icon: const Icon(
+              FontAwesomeIcons.google,
+              color: Colors.white,
+            ),
           )
         ],
       ),
