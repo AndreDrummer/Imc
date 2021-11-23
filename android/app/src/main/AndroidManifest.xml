@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.anjasolutions.imc">
    <application
-        android:label="imc"
+        android:label="IMC Checker"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
