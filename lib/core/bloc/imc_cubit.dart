@@ -1,5 +1,6 @@
 import 'package:imc/core/constants/app_strings.dart';
 import 'package:imc/core/shared/local_storage.dart';
+import 'package:imc/core/database/database.dart';
 import 'package:imc/core/shared/exceptions.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:imc/core/models/imc_model.dart';
@@ -25,7 +26,7 @@ class ImcCubit extends Cubit<ImcModel> {
     _height = value.replaceAll(',', '.');
   }
 
-  void calculateIMC() {
+  Future<void> calculateIMC() async {
     try {
       if (allFieldsAreValids()) {
         double imcCalc = nickTrefethenIMC();
@@ -40,6 +41,8 @@ class ImcCubit extends Cubit<ImcModel> {
         );
 
         LocalStorage.persistIMCOnStorage(generatedIMC);
+        await DataCloud.dataCloud.saveInTheCloud(generatedIMC);
+
         emit(generatedIMC);
       } else {
         throw AppExceptions(AppStrings.fillAllFields);

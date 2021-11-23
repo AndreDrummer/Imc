@@ -1,3 +1,4 @@
+import 'package:imc/core/database/database.dart';
 import 'package:imc/core/shared/local_storage.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:imc/core/models/imc_model.dart';
@@ -26,6 +27,7 @@ class IMCHistoryCubit extends Cubit<List<ImcModel>> {
 
   Future<void> deleteIMCStorage() async {
     await LocalStorage.deleteIMCStorage();
+    await DataCloud.dataCloud.deleteIMCStorage();
     setIMCHistory([]);
     emit(_imcHistory);
   }

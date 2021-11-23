@@ -26,10 +26,14 @@ class LastCalcs extends StatelessWidget {
                 padding: EdgeInsets.symmetric(
                   vertical: 12.0.h,
                 ),
-                child: const Text(
-                  AppStrings.lastCalcs,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w600,
+                child: const Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    AppStrings.lastCalcs,
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
               ),

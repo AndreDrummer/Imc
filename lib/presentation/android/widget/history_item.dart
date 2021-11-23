@@ -27,7 +27,7 @@ class HistoryItem extends StatelessWidget {
                     imc.description,
                     style: TextStyle(
                       fontWeight: FontWeight.w700,
-                      fontSize: 20.0.sp,
+                      fontSize: 16.0.sp,
                     ),
                   ),
                 ),

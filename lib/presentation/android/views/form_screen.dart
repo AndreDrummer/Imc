@@ -1,6 +1,5 @@
 import 'package:imc/presentation/android/widget/imc_primary_button.dart';
 import 'package:imc/presentation/android/widget/last_calcs.dart';
-import 'package:imc/presentation/android/widget/pop_dialog.dart';
 import 'package:imc/presentation/android/widget/imc_field.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:imc/core/constants/app_strings.dart';
@@ -9,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:imc/core/models/imc_model.dart';
 import 'package:imc/core/bloc/imc_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:imc/presentation/android/widget/pop_dialog.dart';
 
 class AndroidFormScreen extends StatelessWidget {
   const AndroidFormScreen({Key? key}) : super(key: key);
@@ -68,10 +68,7 @@ class AndroidFormScreen extends StatelessWidget {
                         },
                       ),
                       const Divider(),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 12.0.h),
-                        child: const LastCalcs(),
-                      ),
+                      const LastCalcs(),
                       const Divider(),
                     ],
                   ),
@@ -93,13 +90,14 @@ class AndroidFormScreen extends StatelessWidget {
       BuildContext context, GlobalKey<FormState> _formKey) async {
     FocusScope.of(context).unfocus();
     if (_formKey.currentState?.validate() ?? false) {
-      context.read<ImcCubit>().calculateIMC();
-      await showDialog(
-        context: context,
-        builder: (context) => SuccessDialog(
-          onOkButtonHitted: () => context.read<ImcCubit>().reset(),
-        ),
-      );
+      await context.read<ImcCubit>().calculateIMC().then((_) async {
+        await showDialog(
+          context: context,
+          builder: (context) => SuccessDialog(
+            onOkButtonHitted: () => context.read<ImcCubit>().reset(),
+          ),
+        );
+      });
     }
   }
 }
