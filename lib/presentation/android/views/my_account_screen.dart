@@ -4,10 +4,31 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:imc/core/auth/auth_controller.dart';
 import 'package:imc/core/constants/app_strings.dart';
 import 'package:flutter/material.dart';
+import 'package:imc/presentation/android/admob/app_ads.dart';
 import 'package:imc/presentation/android/widget/loading_widget.dart';
 
-class MyAccountScreen extends StatelessWidget {
+class MyAccountScreen extends StatefulWidget {
   const MyAccountScreen({Key? key}) : super(key: key);
+
+  @override
+  State<MyAccountScreen> createState() => _MyAccountScreenState();
+}
+
+class _MyAccountScreenState extends State<MyAccountScreen> {
+  AdsManager adsManager = AdsManager();
+
+  @override
+  void initState() {
+    super.initState();
+
+    adsManager.createBannerAdWithCustomSize();
+  }
+
+  @override
+  void dispose() {
+    adsManager.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,20 +36,24 @@ class MyAccountScreen extends StatelessWidget {
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, _) {
         if (AuthController.authController.firebaseUser != null) {
-          return _loggedScreen(
-            userLoggedName:
-                AuthController.authController.firebaseUser!.displayName!,
-            callbackSignOut: () async =>
-                AuthController.authController.signOut(),
+          return _wrapperWidgetAd(
+            child: _loggedScreen(
+              userLoggedName:
+                  AuthController.authController.firebaseUser!.displayName!,
+              callbackSignOut: () async =>
+                  AuthController.authController.signOut(),
+            ),
           );
         } else if (AuthController.authController.firebaseUser == null) {
-          return _unloggedScreen(
-            callbackSignIn: () async {
-              AuthController.authController.googleSignIn();
-            },
+          return _wrapperWidgetAd(
+            child: _unloggedScreen(
+              callbackSignIn: () async {
+                AuthController.authController.googleSignIn();
+              },
+            ),
           );
         } else {
-          return const LoadingWidget();
+          return _wrapperWidgetAd(child: const LoadingWidget());
         }
       },
     );
@@ -78,6 +103,19 @@ class MyAccountScreen extends StatelessWidget {
           )
         ],
       ),
+    );
+  }
+
+  Widget _wrapperWidgetAd({required Widget child}) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Expanded(child: child),
+        Container(
+          margin: const EdgeInsets.only(bottom: 48.0),
+          child: adsManager.adBannerWidgetWithCustomSize(),
+        ),
+      ],
     );
   }
 }

@@ -24,7 +24,13 @@ class _AndroidFormScreenState extends State<AndroidFormScreen> {
   @override
   void initState() {
     super.initState();
-    adsManager.createBannerAd();
+    adsManager.createBannerAdWithDefaultSize();
+  }
+
+  @override
+  void dispose() {
+    adsManager.dispose();
+    super.dispose();
   }
 
   @override
@@ -67,8 +73,8 @@ class _AndroidFormScreenState extends State<AndroidFormScreen> {
                         stream: context.read<ImcCubit>().stream,
                         builder: (context, snapshot) {
                           String? fieldvalue =
-                              snapshot.hasData && snapshot.data!.height > 0.0
-                                  ? snapshot.data?.height.toString()
+                              snapshot.hasData && snapshot.data!.weight > 0.0
+                                  ? snapshot.data?.weight.toString()
                                   : null;
 
                           return IMCField(
@@ -83,19 +89,17 @@ class _AndroidFormScreenState extends State<AndroidFormScreen> {
                       ),
                       const Divider(),
                       const LastCalcs(),
-                      const Divider(),
                     ],
                   ),
                 ),
               ),
-              const Spacer(),
               IMCPrimaryButton(
                 onPressed: () async => await _calculateIMC(context, _formKey),
                 color: Theme.of(context).primaryColor,
                 text: AppStrings.calculateIMC,
               ),
               Container(
-                child: adsManager.adBannerWidget(),
+                child: adsManager.adBannerWidgetWithDefaultSize(),
               ),
             ],
           ),
@@ -118,11 +122,5 @@ class _AndroidFormScreenState extends State<AndroidFormScreen> {
         );
       });
     }
-  }
-
-  @override
-  void dispose() {
-    adsManager.dispose();
-    super.dispose();
   }
 }

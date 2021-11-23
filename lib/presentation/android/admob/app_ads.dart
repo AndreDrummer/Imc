@@ -6,12 +6,13 @@ class AdsManager {
   final int maxFailedLoadAttempts = 3;
   int _numRewardedLoadAttempts = 0;
   InterstitialAd? _interstitialAd;
+  late BannerAd defaultAdBanner;
+  late BannerAd customAdBanner;
   late AdWidget bannerAdWidget;
   RewardedAd? _rewardedAd;
-  late BannerAd adBanner;
 
-  void createBannerAd() {
-    adBanner = BannerAd(
+  void createBannerAdWithDefaultSize() {
+    defaultAdBanner = BannerAd(
       adUnitId:
           BannerAd.testAdUnitId, //'ca-app-pub-2837828701670824/2577493115',
       listener: const BannerAdListener(),
@@ -20,13 +21,33 @@ class AdsManager {
     );
   }
 
-  Container adBannerWidget() {
-    adBanner.load();
+  Container adBannerWidgetWithDefaultSize() {
+    defaultAdBanner.load();
     return Container(
-      height: adBanner.size.height.toDouble(),
-      width: adBanner.size.width.toDouble(),
+      height: defaultAdBanner.size.height.toDouble(),
+      width: defaultAdBanner.size.width.toDouble(),
       alignment: Alignment.center,
-      child: AdWidget(ad: adBanner),
+      child: AdWidget(ad: defaultAdBanner),
+    );
+  }
+
+  void createBannerAdWithCustomSize() {
+    customAdBanner = BannerAd(
+      adUnitId:
+          BannerAd.testAdUnitId, //'ca-app-pub-2837828701670824/2577493115',
+      listener: const BannerAdListener(),
+      request: const AdRequest(),
+      size: const AdSize(width: 300, height: 300),
+    );
+  }
+
+  Container adBannerWidgetWithCustomSize() {
+    customAdBanner.load();
+    return Container(
+      height: customAdBanner.size.height.toDouble(),
+      width: customAdBanner.size.width.toDouble(),
+      alignment: Alignment.center,
+      child: AdWidget(ad: customAdBanner),
     );
   }
 
@@ -142,6 +163,9 @@ class AdsManager {
   }
 
   void dispose() {
-    adBanner.dispose();
+    _interstitialAd?.dispose();
+    defaultAdBanner.dispose();
+    customAdBanner.dispose();
+    _rewardedAd?.dispose();
   }
 }
