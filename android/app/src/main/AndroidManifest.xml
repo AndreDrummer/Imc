@@ -2,7 +2,7 @@
     package="com.anjasolutions.imc">
    <application
         android:label="IMC Checker"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
