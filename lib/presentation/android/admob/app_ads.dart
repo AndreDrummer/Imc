@@ -14,7 +14,7 @@ class AdsManager {
   void createBannerAdWithDefaultSize() {
     defaultAdBanner = BannerAd(
       adUnitId:
-          BannerAd.testAdUnitId, //'ca-app-pub-2837828701670824/2577493115',
+          /*BannerAd.testAdUnitId,*/ 'ca-app-pub-2837828701670824/2577493115',
       listener: const BannerAdListener(),
       request: const AdRequest(),
       size: AdSize.banner,
@@ -34,7 +34,7 @@ class AdsManager {
   void createBannerAdWithCustomSize() {
     customAdBanner = BannerAd(
       adUnitId:
-          BannerAd.testAdUnitId, //'ca-app-pub-2837828701670824/2577493115',
+          /*BannerAd.testAdUnitId */ 'ca-app-pub-2837828701670824/2577493115',
       listener: const BannerAdListener(),
       request: const AdRequest(),
       size: const AdSize(width: 300, height: 300),
@@ -54,7 +54,7 @@ class AdsManager {
   void createRewardedAd() {
     RewardedAd.load(
       adUnitId:
-          RewardedAd.testAdUnitId, //ca-app-pub-2837828701670824/3886705356
+          /* RewardedAd.testAdUnitId, */ 'ca-app-pub-2837828701670824/4113920158',
       request: const AdRequest(),
       rewardedAdLoadCallback: RewardedAdLoadCallback(
         onAdLoaded: (RewardedAd ad) {
@@ -112,7 +112,8 @@ class AdsManager {
   void createInterstitialAd() {
     InterstitialAd.load(
       adUnitId:
-          InterstitialAd.testAdUnitId, //ca-app-pub-2837828701670824/7333505080
+          /*InterstitialAd.testAdUnitId, */
+          'ca-app-pub-2837828701670824/7333505080',
       request: const AdRequest(),
       adLoadCallback: InterstitialAdLoadCallback(
         onAdLoaded: (InterstitialAd ad) {
