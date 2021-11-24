@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
@@ -12,9 +13,12 @@ class AdsManager {
   RewardedAd? _rewardedAd;
 
   void createBannerAdWithDefaultSize() {
+    String adID = kDebugMode
+        ? BannerAd.testAdUnitId
+        : 'ca-app-pub-2837828701670824/2577493115';
+
     defaultAdBanner = BannerAd(
-      adUnitId:
-          /*BannerAd.testAdUnitId,*/ 'ca-app-pub-2837828701670824/2577493115',
+      adUnitId: adID,
       listener: const BannerAdListener(),
       request: const AdRequest(),
       size: AdSize.banner,
@@ -32,9 +36,12 @@ class AdsManager {
   }
 
   void createBannerAdWithCustomSize() {
+    String adID = kDebugMode
+        ? BannerAd.testAdUnitId
+        : 'ca-app-pub-2837828701670824/2577493115';
+
     customAdBanner = BannerAd(
-      adUnitId:
-          /*BannerAd.testAdUnitId */ 'ca-app-pub-2837828701670824/2577493115',
+      adUnitId: adID,
       listener: const BannerAdListener(),
       request: const AdRequest(),
       size: const AdSize(width: 300, height: 300),
@@ -52,9 +59,12 @@ class AdsManager {
   }
 
   void createRewardedAd() {
+    String adID = kDebugMode
+        ? RewardedAd.testAdUnitId
+        : 'ca-app-pub-2837828701670824/4113920158';
+
     RewardedAd.load(
-      adUnitId:
-          /* RewardedAd.testAdUnitId, */ 'ca-app-pub-2837828701670824/4113920158',
+      adUnitId: adID,
       request: const AdRequest(),
       rewardedAdLoadCallback: RewardedAdLoadCallback(
         onAdLoaded: (RewardedAd ad) {
@@ -110,10 +120,12 @@ class AdsManager {
   }
 
   void createInterstitialAd() {
+    String adID = kDebugMode
+        ? InterstitialAd.testAdUnitId
+        : 'ca-app-pub-2837828701670824/7333505080';
+
     InterstitialAd.load(
-      adUnitId:
-          /*InterstitialAd.testAdUnitId, */
-          'ca-app-pub-2837828701670824/7333505080',
+      adUnitId: adID,
       request: const AdRequest(),
       adLoadCallback: InterstitialAdLoadCallback(
         onAdLoaded: (InterstitialAd ad) {
